@@ -1,0 +1,461 @@
+---
+title: "Quarto Workshop"
+subtitle: "Spanish Seminar PSE"
+author: "Elisa Alonso-Herrero"
+date: today
+format:
+  revealjs:
+    theme: simple
+    css: slide-elements/styles.css
+    slide-number: true
+    transition: fade
+    incremental: false
+    embed-resources: true
+execute:
+  echo: true
+---
+
+```{r}
+#| label: setup
+#| include: false
+library(tidyverse)
+library(kableExtra)
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+```
+
+## Overview {.smaller}
+<!-- ====================================================================== -->
+
+::: {.columns}
+::: {.column width="50%"}
+**1. The Basics of Quarto**
+
+- 1.1. What is Quarto?
+- 1.2. Setup: RStudio vs. VS Code
+- 1.3. Anatomy of a `.qmd` file
+- 1.4. Rendering
+
+**2. Creating a document**
+
+- 3.1. YAML options
+- 3.2. Cross-references
+- 3.3. Citations
+:::
+
+::: {.column width="50%"}
+**3. Creating a presentation**
+
+- 3.1. Revealjs YAML
+- 3.2. Columns
+- 3.3. Incremental reveals & speaker notes
+
+**5. Creating a ...**
+
+- 5.1. The `_quarto.yml` project file
+- 5.2. Preview vs. render
+
+**6. Wrap-up & Resources**
+:::
+:::
+
+
+# 1. The Basics of Quarto
+<!-- ====================================================================== -->
+
+## 1.1 What is Quarto? <!----------------------------------->
+- **Quarto** is a publishing system that allows you to both **write text** and **run code** (R/Python/Julia) in the same document
+  - Great for **data science** and **reproducible research**!
+- Successor to R Markdown, from the same team at Posit
+- You can create many different things: [documents](https://quarto.org/docs/output-formats/all-formats.html), [presentations](https://quarto.org/docs/presentations/), [dashboards](https://quarto.org/docs/dashboards/), [websites](https://quarto.org/docs/websites/), [books](https://quarto.org/docs/books/), and more!
+  - And in different formats depending on the type of *document*: HTML, PDF, Word, PowerPoint, Beamer, Revealjs...
+
+
+## 1.2 Setup: RStudio vs. VS Code[^other] <!----------------------->
+::: {.columns}
+::: {.column width="50%"}
+**RStudio**
+
+- Install [R (CRAN)](https://cran.r-project.org/)
+- Install [RStudio Desktop](https://docs.posit.co/ide/user/)
+- Quarto is already **bundled** in RStudio!
+:::
+
+::: {.column width="50%"}
+**VS Code**
+
+- Install [R (CRAN)](https://cran.r-project.org/)
+- Install [VS Code](https://code.visualstudio.com/)
+- Install the [**Quarto CLI**](https://quarto.org/docs/get-started/installation.html) separately
+- Install the [**Quarto extension**](https://marketplace.visualstudio.com/items?itemName=quarto.quarto)
+:::
+:::
+
+[^other]: Other options include: Jupyter, Positron, Neovim, any text editor
+
+## 1.3 Anatomy of a `.qmd` file <!----------------------->
+
+::: {.columns}
+::: {.column width="25%"}
+<p style="font-size:0.7em; margin-top:0.5cm; margin-bottom:1.6cm;"><b>YAML header &#10140;</b></p>
+<p style="font-size:0.7em; margin-bottom:2.3cm;"><b>Text &#10140;</b></p>
+<p style="font-size:0.7em; margin-bottom:1cm;"><b>&nbsp;</b></p>
+<p style="font-size:0.7em; margin-bottom:1cm;"><b>Code chunk &#10140;</b></p>
+:::
+::: {.column width="75%"}
+<center><img src="slide-elements/figures/quarto_template.png" width="850"/></center>
+:::
+:::
+
+## 1.3 Anatomy: YAML header <!----------------------->
+
+- The YAML header is a **metadata block** that tells Quarto how to render the document. 
+- It **must** be enclosed by three dashes (`---`) at the top and bottom
+- It **must** be the first thing in the file (no blank lines or comments above it)
+- It accepts **many options** depending on the output format (HTML, PDF, slides, etc.)
+
+
+```yaml
+---
+title: "My first Quarto document"
+author: "Elisa Alonso-Herrero"
+date: today
+format: html
+---
+```
+
+## 1.3 Anatomy: YAML header {.smaller}
+
+**General options** (any document type)
+
+- `title`, `author`, `date` — document metadata
+- `format` — output type: `html`, `pdf`, `docx`, `revealjs`, `beamer`...
+- `execute:` — code execution options (`echo`, `warning`, `message`...)
+- `bibliography`, `csl` — citations and citation style
+
+**Format-specific options** — nested under `format:`
+
+::: {.columns}
+::: {.column width="50%"}
+*Reports* (`html`, `pdf`, `docx`)
+
+- `toc: true` — table of contents
+- `number-sections: true`
+- `code-fold: true` — collapsible code
+:::
+
+::: {.column width="50%"}
+*Presentations* (`revealjs`, `beamer`)
+
+- `slide-number: true`
+- `transition` — slide transition style
+- `incremental: true` — reveal bullets one at a time
+:::
+:::
+
+## 1.3 Anatomy: Text <!----------------------->
+
+- Quarto uses **Markdown** for text formatting, which relies on symbols to indicate formatting (e.g. for headings, **bold** or *italics*)
+- Mathematical expressions can be written in **LaTeX**
+- You can also include HTML tags for more advanced formatting
+
+## 1.3 Anatomy: Text {.smaller}
+
+::: {.columns}
+::: {.column width="50%"}
+<center><h4>Syntax</h4></center>
+
+`Plain text`
+
+`End a line with two spaces for a line break`
+
+`*italics*`
+
+`**bold**`
+<br>
+
+`# Header 1`
+<br><br>
+
+`## Header 2`
+
+`###### Header 6`
+
+`[link](https://quarto.org)`
+:::
+
+::: {.column width="50%"}
+<center><h4>Output</h4></center>
+
+Plain text
+
+End a line with two spaces for a line break
+
+*italics*
+
+**bold**
+
+<div style="font-size:2em; font-weight:bold; margin:0.3em 0;">Header 1</div>
+
+<div style="font-size:1.5em; font-weight:bold; margin:0.3em 0;">Header 2</div>
+
+<div style="font-size:0.85em; font-weight:bold; margin:0.3em 0;">Header 6</div>
+
+[link](https://quarto.org)
+:::
+:::
+
+
+## 1.3 Anatomy: Code chunks <!----------------------->
+
+- **Code chunks are blocks of R code** that can be run when working on and rendering the .qmd file
+-  You can insert a code chunk using a shorcut (e.g. `Ctrl + Alt + i` in R Studio) or by typing the **backticks chunk delimiters** as follows
+
+```{r}
+1+1
+```
+
+
+## 1.3 Anatomy: Code chunks <!----------------------->
+
+The content to be displayed in the output document can be controlled with [**chunk options**](https://quarto.org/docs/computations/execution-options.html)
+
+```{r, echo = F}
+kable(tibble(Option = c("eval", "echo", "warning", "error", "message", 
+                         "fig.width", "fig.height"),
+             Default = c("TRUE", "TRUE", "TRUE", "TRUE", 
+                         "TRUE", "7", "7"),
+             Effect = c("Whether to evaluate the code and include its results", 
+             "Whether to display code along with its results", 
+             "Whether to display warnings", 
+             "Whether to display errors", 
+             "Whether to display messages", 
+             "Width in inches for plots created in chunk", 
+             "Height in inches for plots created in chunk")), caption = "", align = "lcl") %>%
+  row_spec(0, align = "c")
+```
+
+## 1.3 Anatomy: Code chunks <!----------------------->
+
+- For an option to apply to the **whole document**, set it up in the YAML header:
+
+````YAML
+---
+title: "My first Quarto document"
+format: html
+execute:
+  echo: false
+  warning: false
+---
+````
+
+- For an option to apply to a **specific chunk**, two possibilities:
+
+::: {.columns}
+::: {.column width="50%"}
+<center><h4>Chunk header</h4></center>
+
+`````markdown
+```{{r, echo = false, warning = false}}
+1 + 1
+```
+`````
+:::
+
+::: {.column width="50%"}
+<center><h4>Pipe (<code>#|</code>) options</h4></center>
+
+`````markdown
+```{{r}}
+#| echo: false
+#| warning: false
+1 + 1
+```
+`````
+:::
+:::
+
+## 1.4 Rendering 
+
+- You can **create the final document** by clicking **Render** in RStudio or **Preview** in VS Code
+
+- **What happens in the background?** Quarto hands the file to **knitr** (or Jupyter) to run the code and capture its output, then passes the resulting Markdown to **Pandoc**, which renders it into the final format (HTML, PDF, Word...)
+
+![](slide-elements/figures/quarto-flow.png){width="700" fig-align="center"}
+
+## 1.4 Rendering: [**multiple formats**](https://quarto.org/docs/output-formats/all-formats.html)
+
+- The `format` YAML field specifies **how** to render the document, and you can list **more than one format** to render the same `.qmd` file multiple ways[^pdf]
+
+```yaml
+---
+title: "My first Quarto document"
+format:
+  html:
+    toc: true
+  pdf:
+    number-sections: true
+---
+```
+
+- The **first format listed** is used by default when you click **Render**; to render a specific one instead:
+
+```bash
+quarto render doc.qmd --to pdf
+```
+
+[^pdf]: PDF output requires a TeX distribution to be installed on your system. If you don't have any, run `quarto install tinytex` in the terminal
+
+<!--
+
+# 3. Document Type 1 — Report
+
+::: {.notes}
+Timing: ~8 min. Show the rendered HTML report you prepared ahead of time as backup.
+:::
+
+## Report-flavored YAML
+
+```yaml
+---
+title: "Quarterly Summary"
+format:
+  html:
+    toc: true
+    number-sections: true
+---
+```
+
+- `toc: true` — auto-generated table of contents
+- `number-sections: true` — numbered headings
+
+## Cross-references
+
+Refer to the figure from Section 2 by its label instead of a manual number:
+
+```markdown
+As shown in @fig-demo, weight and fuel
+efficiency are inversely related.
+```
+
+::: {.fragment}
+Renders as **"Figure 1"** — and stays correct even if you reorder sections.
+:::
+
+## Citations (pointer, not a full demo)
+
+```yaml
+bibliography: references.bib
+csl: apa.csl
+```
+
+```markdown
+This finding echoes @smith2020.
+```
+
+Worth knowing exists — we won't build this live today.
+
+# 4. Document Type 2 — Presentation
+
+::: {.notes}
+Timing: ~10 min. This slide deck IS the demo — say that explicitly, then build 2-3 new slides live from scratch.
+:::
+
+## You're looking at one right now
+
+```yaml
+format:
+  revealjs:
+    theme: simple
+    slide-number: true
+    transition: fade
+```
+
+Each `##` heading starts a new slide. `#` (single hash) makes a big section divider — like the slides introducing each part of this workshop.
+
+## Columns, live
+
+::: {.columns}
+::: {.column width="50%"}
+```markdown
+::: {.columns}
+::: {.column width="50%"}
+Left content
+:::
+::: {.column width="50%"}
+Right content
+:::
+:::
+```
+:::
+::: {.column width="50%"}
+This is what it looks like rendered — you're reading the output of the exact code on the left.
+:::
+:::
+
+## Incremental reveals & speaker notes
+
+::: {.incremental}
+- Bullet one
+- Bullet two
+- Bullet three
+:::
+
+```markdown
+::: {.notes}
+Only you see this, in Speaker View (press "S").
+:::
+```
+
+# 5. Document Type 3 — Website / Book
+
+::: {.notes}
+Timing: ~8 min. Show a pre-built two-page site if live-building runs short on time.
+:::
+
+## The project file: `_quarto.yml`
+
+```yaml
+project:
+  type: website
+
+website:
+  title: "My Site"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: about.qmd
+        text: About
+```
+
+One `.qmd` file per page; the navbar links them together.
+
+## Preview vs. render
+
+```bash
+quarto preview   # live-reloading local server
+quarto render    # builds the static site to /_site
+```
+
+::: {.fragment}
+**Books** work the same way, with `type: book` and chapters instead of pages — and can additionally render to PDF and EPUB.
+:::
+
+# 6. Wrap-up & Resources
+
+::: {.notes}
+Timing: ~5 min. Genuine buffer — let this absorb any overrun from earlier sections.
+:::
+
+## Where to go next
+
+- **Docs**: quarto.org/docs
+- **Cheat sheet**: rstudio.github.io/cheatsheets → Quarto
+- **Extensions gallery**: quarto.org/docs/extensions — confetti, fullscreen code, and more for revealjs
+- **Gallery of real examples**: quarto.org/docs/gallery
+
+## Thank you! {.center}
+
+Questions?
+[your.email@example.com]{.fragment}
+-->
