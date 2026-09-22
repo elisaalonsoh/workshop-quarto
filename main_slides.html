@@ -1307,7 +1307,8 @@ Elisa Alonso-Herrero
 <li>1.1. What is Quarto?</li>
 <li>1.2. Setup: RStudio vs. VS Code</li>
 <li>1.3. Anatomy of a <code>.qmd</code> file</li>
-<li>1.4. Rendering</li>
+<li>1.4. More features</li>
+<li>1.5. Rendering</li>
 </ul>
 <p><strong>2. Creating a document</strong></p>
 <ul>
@@ -1436,7 +1437,7 @@ Elisa Alonso-Herrero
 <section id="anatomy-text" class="slide level2">
 <h2>1.3 Anatomy: Text <!-----------------------></h2>
 <ul>
-<li>Quarto uses <strong>Markdown</strong> for text formatting, which relies on symbols to indicate formatting (e.g. for headings, <strong>bold</strong> or <em>italics</em>)</li>
+<li>Quarto uses (Pandoc) <strong>Markdown</strong> for text formatting, which relies on symbols to indicate formatting (e.g. for headings, <strong>bold</strong> or <em>italics</em>)</li>
 <li>Mathematical expressions can be written in <strong>LaTeX</strong></li>
 <li>You can also include HTML tags for more advanced formatting</li>
 </ul>
@@ -1585,8 +1586,57 @@ Pipe (<code>#|</code>) options
 <span id="cb6-5"><a href></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 </section>
+<section id="more-features-including-tables" class="slide level2">
+<h2>1.4 More features: Including tables <!-----------------------></h2>
+<ul>
+<li>Two ways to include tables in a <code>.qmd</code> file:</li>
+</ul>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>Markdown</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href></a><span class="pp">|</span> Col A <span class="pp">|</span> Col B <span class="pp">|</span></span>
+<span id="cb7-2"><a href></a><span class="pp">|-------|-------|</span></span>
+<span id="cb7-3"><a href></a><span class="pp">|</span> 1     <span class="pp">|</span> 2     <span class="pp">|</span></span>
+<span id="cb7-4"><a href></a><span class="pp">|</span> 3     <span class="pp">|</span> 4     <span class="pp">|</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column" style="width:50%;">
+<p><strong>R</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href></a><span class="in">```{r}</span></span>
+<span id="cb8-2"><a href></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(mtcars))</span>
+<span id="cb8-3"><a href></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div></div>
+<ul>
+<li>Markdown tables are simple but static; tables built <strong>in R</strong> (or Python) can be generated from data and styled with packages like <code>kableExtra</code>, <code>huxtable</code> or <code>gt</code></li>
+</ul>
+</section>
+<section id="more-features-including-figures-more-fig" class="slide level2">
+<h2>More features: Including figures <sup>1</sup> <!-----------------------></h2>
+<ul>
+<li>Figures can come from a <strong>code chunk</strong> (e.g. a <code>ggplot2</code> plot) or be <strong>inserted directly</strong> with Markdown image syntax</li>
+<li>Chunk options control figure appearance: <code>fig-width</code>, <code>fig-height</code>, <code>fig-cap</code>, <code>fig-align</code>…</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href></a><span class="in">```{r}</span></span>
+<span id="cb9-2"><a href></a><span class="co">#| label: fig-scatter</span></span>
+<span id="cb9-3"><a href></a><span class="co">#| fig-cap: &quot;Fuel efficiency vs. weight&quot;</span></span>
+<span id="cb9-4"><a href></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(wt, mpg)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span>
+<span id="cb9-5"><a href></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href></a><span class="fu"># Markdown syntax for an image:</span></span>
+<span id="cb10-2"><a href></a><span class="al">![Caption text](path/to/image.png)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<aside><ol class="aside-footnotes"><li id="fn2"><p>See <a href="https://r4ds.hadley.nz/quarto.html#sec-figures">R for Data Science — Figures</a> for more details</p></li></ol></aside></section>
+<section id="more-features-including-citations-more-citations" class="slide level2">
+<h2>1.4 More features: Including citations <sup>1</sup> <!-----------------------></h2>
+<ul>
+<li>Add a <code>bibliography</code> file (e.g. <code>.bib</code>) to the YAML header, then cite with <code>@key</code></li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb11-1"><a href></a><span class="pp">---</span></span>
+<span id="cb11-2"><a href></a><span class="fu">bibliography</span><span class="kw">:</span><span class="at"> references.bib</span></span>
+<span id="cb11-3"><a href></a><span class="pp">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb12-1"><a href></a>As shown by @wickham2016, ...</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>Quarto automatically generates a <strong>reference list</strong> at the end of the document</li>
+</ul>
+<aside><ol class="aside-footnotes"><li id="fn3"><p>See <a href="https://r4ds.hadley.nz/quarto.html#bibliographies-and-citations">R for Data Science — Bibliographies &amp; Citations</a> for more details</p></li></ol></aside></section>
 <section id="rendering" class="slide level2">
-<h2>1.4 Rendering</h2>
+<h2>1.4 Rendering <!-----------------------></h2>
 <ul>
 <li><p>You can <strong>create the final document</strong> by clicking <strong>Render</strong> in RStudio or <strong>Preview</strong> in VS Code</p></li>
 <li><p><strong>What happens in the background?</strong> Quarto hands the file to <strong>knitr</strong> (or Jupyter) to run the code and capture its output, then passes the resulting Markdown to <strong>Pandoc</strong>, which renders it into the final format (HTML, PDF, Word…)</p></li>
@@ -1598,25 +1648,42 @@ Pipe (<code>#|</code>) options
 <ul>
 <li>The <code>format</code> YAML field specifies <strong>how</strong> to render the document, and you can list <strong>more than one format</strong> to render the same <code>.qmd</code> file multiple ways<sup>1</sup></li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb7-1"><a href></a><span class="pp">---</span></span>
-<span id="cb7-2"><a href></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;My first Quarto document&quot;</span></span>
-<span id="cb7-3"><a href></a><span class="fu">format</span><span class="kw">:</span></span>
-<span id="cb7-4"><a href></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span></span>
-<span id="cb7-5"><a href></a><span class="at">    </span><span class="fu">toc</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="cb7-6"><a href></a><span class="at">  </span><span class="fu">pdf</span><span class="kw">:</span></span>
-<span id="cb7-7"><a href></a><span class="at">    </span><span class="fu">number-sections</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="cb7-8"><a href></a><span class="pp">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb13-1"><a href></a><span class="pp">---</span></span>
+<span id="cb13-2"><a href></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;My first Quarto document&quot;</span></span>
+<span id="cb13-3"><a href></a><span class="fu">format</span><span class="kw">:</span></span>
+<span id="cb13-4"><a href></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span></span>
+<span id="cb13-5"><a href></a><span class="at">    </span><span class="fu">toc</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb13-6"><a href></a><span class="at">  </span><span class="fu">pdf</span><span class="kw">:</span></span>
+<span id="cb13-7"><a href></a><span class="at">    </span><span class="fu">number-sections</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb13-8"><a href></a><span class="pp">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li>The <strong>first format listed</strong> is used by default when you click <strong>Render</strong>; to render a specific one instead:</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href></a><span class="ex">quarto</span> render doc.qmd <span class="at">--to</span> pdf</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href></a><span class="ex">quarto</span> render doc.qmd <span class="at">--to</span> pdf</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<aside><ol class="aside-footnotes"><li id="fn4"><p>PDF output requires a TeX distribution to be installed on your system. If you don’t have any, run <code>quarto install tinytex</code> in the terminal</p></li></ol></aside></section>
+<section id="rendering-caching-self-contained-files-more-rendering" class="slide level2 smaller">
+<h2>1.4 Rendering: caching &amp; self-contained files <sup>1</sup></h2>
+<p><strong>Caching</strong></p>
+<ul>
+<li><code>cache: true</code> (in the YAML or a chunk) tells <code>knitr</code> to <strong>save chunk results</strong> and skip re-running code that hasn’t changed on the next render — useful for slow chunks (e.g. heavy models, big data)</li>
+<li>Cache is invalidated automatically if the chunk’s code changes</li>
+<li>See <a href="https://r4ds.hadley.nz/quarto.html#sec-caching">R for Data Science — Caching</a> for more details</li>
+</ul>
+<p><strong>Self-contained (embedded) files</strong></p>
+<ul>
+<li>By default, HTML output can depend on <strong>external files</strong> (images, JS, CSS) alongside the <code>.html</code></li>
+<li><code>embed-resources: true</code> bundles everything into a <strong>single, portable HTML file</strong> — easier to share, but a larger file</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb15-1"><a href></a><span class="fu">format</span><span class="kw">:</span></span>
+<span id="cb15-2"><a href></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span></span>
+<span id="cb15-3"><a href></a><span class="at">    </span><span class="fu">embed-resources</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ol start="2" type="1">
+<li>Creating a document <!-- ====================================================================== --></li>
+</ol>
 <!--
 
 # 3. Document Type 1 — Report
 
-::: {.notes}
-Timing: ~8 min. Show the rendered HTML report you prepared ahead of time as backup.
-:::
 
 ## Report-flavored YAML
 
@@ -1765,7 +1832,7 @@ Questions?
 [your.email@example.com]{.fragment}
 -->
 
-<aside><ol class="aside-footnotes"><li id="fn2"><p>PDF output requires a TeX distribution to be installed on your system. If you don’t have any, run <code>quarto install tinytex</code> in the terminal</p></li></ol></aside></section></section>
+<aside><ol class="aside-footnotes"><li id="fn5"><p>See <a href="https://r4ds.hadley.nz/quarto.html#yaml-header">R for Data Science — YAML header</a> for more details</p></li></ol></aside></section></section>
 
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">

@@ -33,14 +33,15 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 - 1.1. What is Quarto?
 - 1.2. Setup: RStudio vs. VS Code
 - 1.3. Anatomy of a `.qmd` file
-- 1.4. Rendering
+- 1.4. More features
+- 1.5. Rendering
 
-**2. Creating a document**
-
-- 3.1. YAML options
-- 3.2. Cross-references
-- 3.3. Citations
-:::
+**2. What can we create with Quarto?**
+- 2.1. Documents
+- 2.2. Presentations
+- 2.3. Dashboards
+- 2.4. Websites
+- 2.5. Books
 
 ::: {.column width="50%"}
 **3. Creating a presentation**
@@ -49,12 +50,8 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 - 3.2. Columns
 - 3.3. Incremental reveals & speaker notes
 
-**5. Creating a ...**
 
-- 5.1. The `_quarto.yml` project file
-- 5.2. Preview vs. render
-
-**6. Wrap-up & Resources**
+**4. Wrap-up & Resources**
 :::
 :::
 
@@ -154,7 +151,7 @@ format: html
 
 ## 1.3 Anatomy: Text <!----------------------->
 
-- Quarto uses **Markdown** for text formatting, which relies on symbols to indicate formatting (e.g. for headings, **bold** or *italics*)
+- Quarto uses (Pandoc) **Markdown** for text formatting, which relies on symbols to indicate formatting (e.g. for headings, **bold** or *italics*)
 - Mathematical expressions can be written in **LaTeX**
 - You can also include HTML tags for more advanced formatting
 
@@ -274,7 +271,71 @@ execute:
 :::
 :::
 
-## 1.4 Rendering 
+## 1.4 More features: Including tables  <!----------------------->
+
+- Two ways to include tables in a `.qmd` file:
+
+::: {.columns}
+::: {.column width="50%"}
+**Markdown**
+
+```markdown
+| Col A | Col B |
+|-------|-------|
+| 1     | 2     |
+| 3     | 4     |
+```
+:::
+
+::: {.column width="50%"}
+**R**
+
+```{{r}}
+knitr::kable(head(mtcars))
+```
+:::
+:::
+
+- Markdown tables are simple but static; tables built **in R** (or Python) can be generated from data and styled with packages like `kableExtra`, `huxtable` or `gt`
+
+## More features: Including figures [^more-fig]  <!----------------------->
+
+- Figures can come from a **code chunk** (e.g. a `ggplot2` plot) or be **inserted directly** with Markdown image syntax
+- Chunk options control figure appearance: `fig-width`, `fig-height`, `fig-cap`, `fig-align`...
+
+
+```{{r}}
+#| label: fig-scatter
+#| fig-cap: "Fuel efficiency vs. weight"
+ggplot(mtcars, aes(wt, mpg)) + geom_point()
+```
+
+```markdown
+# Markdown syntax for an image:
+![Caption text](path/to/image.png)
+```
+
+[^more-fig]:See [R for Data Science — Figures](https://r4ds.hadley.nz/quarto.html#sec-figures) for more details
+
+## 1.4 More features: Including citations [^more-citations] <!----------------------->
+
+- Add a `bibliography` file (e.g. `.bib`) to the YAML header, then cite with `@key`
+
+```yaml
+---
+bibliography: references.bib
+---
+```
+
+```markdown
+As shown by @wickham2016, ...
+```
+
+- Quarto automatically generates a **reference list** at the end of the document
+
+[^more-citations]: See [R for Data Science — Bibliographies & Citations](https://r4ds.hadley.nz/quarto.html#bibliographies-and-citations) for more details
+
+## 1.4 Rendering <!----------------------->
 
 - You can **create the final document** by clicking **Render** in RStudio or **Preview** in VS Code
 
@@ -305,13 +366,38 @@ quarto render doc.qmd --to pdf
 
 [^pdf]: PDF output requires a TeX distribution to be installed on your system. If you don't have any, run `quarto install tinytex` in the terminal
 
+
+## 1.4 Rendering: caching & self-contained files [^more-rendering] {.smaller}
+
+**Caching**
+
+- `cache: true` (in the YAML or a chunk) tells `knitr` to **save chunk results** and skip re-running code that hasn't changed on the next render — useful for slow chunks (e.g. heavy models, big data)
+- Cache is invalidated automatically if the chunk's code changes
+- See [R for Data Science — Caching](https://r4ds.hadley.nz/quarto.html#sec-caching) for more details
+
+**Self-contained (embedded) files**
+
+- By default, HTML output can depend on **external files** (images, JS, CSS) alongside the `.html`
+- `embed-resources: true` bundles everything into a **single, portable HTML file** — easier to share, but a larger file
+
+```yaml
+format:
+  html:
+    embed-resources: true
+```
+
+[^more-rendering]: See [R for Data Science — YAML header](https://r4ds.hadley.nz/quarto.html#yaml-header) for more details
+
+2. Creating a document
+<!-- ====================================================================== -->
+
+
+
+
 <!--
 
 # 3. Document Type 1 — Report
 
-::: {.notes}
-Timing: ~8 min. Show the rendered HTML report you prepared ahead of time as backup.
-:::
 
 ## Report-flavored YAML
 
