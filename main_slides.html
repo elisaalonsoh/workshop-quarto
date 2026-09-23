@@ -442,7 +442,7 @@
   <meta name="generator" content="quarto-1.9.36">
 
   <meta name="author" content="Elisa Alonso-Herrero">
-  <meta name="dcterms.date" content="2026-09-22">
+  <meta name="dcterms.date" content="2026-09-23">
   <title>Quarto Workshop</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -1295,7 +1295,7 @@ Elisa Alonso-Herrero
 </div>
 </div>
 
-  <p class="date">2026-09-22</p>
+  <p class="date">2026-09-23</p>
 </section>
 <section id="overview" class="slide level2 smaller">
 <h2>Overview</h2>
@@ -1310,11 +1310,13 @@ Elisa Alonso-Herrero
 <li>1.4. More features</li>
 <li>1.5. Rendering</li>
 </ul>
-<p><strong>2. Creating a document</strong></p>
+<p><strong>2. What can we create with Quarto?</strong></p>
 <ul>
-<li>3.1. YAML options</li>
-<li>3.2. Cross-references</li>
-<li>3.3. Citations</li>
+<li>2.1. Article and reports</li>
+<li>2.2. Presentations</li>
+<li>2.3. Dashboards</li>
+<li>2.4. Websites</li>
+<li>2.5. Books</li>
 </ul>
 </div><div class="column" style="width:50%;">
 <p><strong>3. Creating a presentation</strong></p>
@@ -1323,12 +1325,7 @@ Elisa Alonso-Herrero
 <li>3.2. Columns</li>
 <li>3.3. Incremental reveals &amp; speaker notes</li>
 </ul>
-<p><strong>5. Creating a …</strong></p>
-<ul>
-<li>5.1. The <code>_quarto.yml</code> project file</li>
-<li>5.2. Preview vs. render</li>
-</ul>
-<p><strong>6. Wrap-up &amp; Resources</strong></p>
+<p><strong>4. Wrap-up &amp; Resources</strong></p>
 </div></div>
 </section>
 <section>
@@ -1344,7 +1341,7 @@ Elisa Alonso-Herrero
 <li>Great for <strong>data science</strong> and <strong>reproducible research</strong>!</li>
 </ul></li>
 <li>Successor to R Markdown, from the same team at Posit</li>
-<li>You can create many different things: <a href="https://quarto.org/docs/output-formats/all-formats.html">documents</a>, <a href="https://quarto.org/docs/presentations/">presentations</a>, <a href="https://quarto.org/docs/dashboards/">dashboards</a>, <a href="https://quarto.org/docs/websites/">websites</a>, <a href="https://quarto.org/docs/books/">books</a>, and more!
+<li>You can create many different documents: <a href="https://quarto.org/docs/output-formats/all-formats.html">article and reports</a>, <a href="https://quarto.org/docs/presentations/">presentations</a>, <a href="https://quarto.org/docs/dashboards/">dashboards</a>, <a href="https://quarto.org/docs/websites/">websites</a>, <a href="https://quarto.org/docs/books/">books</a>, and more!
 <ul>
 <li>And in different formats depending on the type of <em>document</em>: HTML, PDF, Word, PowerPoint, Beamer, Revealjs…</li>
 </ul></li>
@@ -1677,54 +1674,261 @@ Pipe (<code>#|</code>) options
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb15-1"><a href></a><span class="fu">format</span><span class="kw">:</span></span>
 <span id="cb15-2"><a href></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span></span>
 <span id="cb15-3"><a href></a><span class="at">    </span><span class="fu">embed-resources</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<ol start="2" type="1">
-<li>Creating a document <!-- ====================================================================== --></li>
-</ol>
+<aside><ol class="aside-footnotes"><li id="fn5"><p>See <a href="https://r4ds.hadley.nz/quarto.html#yaml-header">R for Data Science — YAML header</a> for more details</p></li></ol></aside></section></section>
+<section>
+<section id="what-can-we-create-with-quarto" class="title-slide slide level1 center">
+<h1>2. What can we create with Quarto?</h1>
+<!-- ====================================================================== -->
+</section>
+<section id="articles-reports" class="slide level2">
+<h2>2.1 Articles &amp; Reports ⭐ <!-----------------------></h2>
+<ul>
+<li>Basic documents (<code>.qmd</code> → HTML, PDF, or Word) for <strong>analyses, papers, and reports</strong></li>
+<li>Great for exploratory analysis! E.g. That’s how I prepare meetings with my supervisor</li>
+</ul>
+<p><strong>Examples:</strong></p>
+<ul>
+<li>“My first Quarto document” that you created before</li>
+<li><a href="https://quarto.org/docs/output-formats/html-basics.html">Sample HTML report</a> or a <a href="https://quarto-dev.github.io/quarto-gallery/page-layout/tufte.html">HTML report with fancier layout</a></li>
+</ul>
+</section>
+<section id="presentations" class="slide level2">
+<h2>2.2 Presentations <!-----------------------></h2>
+<ul>
+<li>Multiple engines: <strong>Revealjs</strong> (HTML, like this deck!), <strong>Beamer</strong> (PDF), <strong>PowerPoint</strong></li>
+<li><code>##</code> headings become slides; <code>#</code> headings become section dividers</li>
+<li>Personal take: useful for TA sessions, but not worth switching from Beamer for anything else</li>
+</ul>
+<p><strong>Examples:</strong></p>
+<ul>
+<li><a href="https://louissirugue.github.io/metrics_on_R/lecture10/slides.html#1">Intro to Econometrics and R</a> by <a href="https://louissirugue.github.io/metrics_on_R/">Louis Sirugue</a> (technically R Markdown, but you can do the same in Quarto)</li>
+</ul>
+</section>
+<section id="dashboards" class="slide level2">
+<h2>2.3 Dashboards <!-----------------------></h2>
+<ul>
+<li>Arrange plots, tables, and value boxes into a <strong>grid layout</strong></li>
+<li>Row/column layout is controlled with <code>##</code> and <code>###</code> headings plus <code>{.tabset}</code>/orientation options</li>
+<li>Can be <strong>static</strong> (rendered once) or <strong>interactive</strong> (via Shiny/Observable)</li>
+</ul>
+<p><strong>Examples:</strong></p>
+<ul>
+<li><a href="https://quarto.org/docs/gallery/#dashboards">Quarto dashboards gallery</a></li>
+<li><a href="https://mine-cetinkaya-rundel.github.io/ld-dashboard/">Labor and delivery dashboards</a></li>
+</ul>
+</section>
+<section id="websites" class="slide level2">
+<h2>2.4 Websites ⭐ <!-----------------------></h2>
+<ul>
+<li>Multiple <code>.qmd</code> pages linked together via a <strong>navbar/sidebar</strong>, defined in <code>_quarto.yml</code></li>
+<li>Great for <strong>course pages, personal sites, or project docs</strong></li>
+<li><code>quarto preview</code> gives a live-reloading local server while you build</li>
+</ul>
+<p><strong>Examples:</strong></p>
+<ul>
+<li><a href="https://quarto.org/docs/gallery/#websites">Quarto websites gallery</a></li>
+<li>Course/workshop sites: <a href="https://crsl4.github.io/julia-workshop/">Julia Workship</a>, <a href="https://sta210-s22.github.io/website/">STA 210</a></li>
+<li>Personal sites: <a href="https://www.mm218.dev/">Mike Mahoney</a></li>
+</ul>
+</section>
+<section id="books" class="slide level2">
+<h2>2.5 Books ⭐ <!-----------------------></h2>
+<ul>
+<li>Like websites, but organized into <strong>chapters</strong> with automatic numbering, a shared bibliography, and cross-chapter references</li>
+<li>Renders to a full site <strong>and</strong> PDF/EPUB from one source</li>
+</ul>
+<p><strong>Examples:</strong></p>
+<ul>
+<li><a href="https://quarto.org/docs/gallery/#books">Quarto books gallery</a></li>
+<li><a href="https://r4ds.hadley.nz/">R for Data Science</a></li>
+</ul>
+</section></section>
+<section>
+<section id="creating-a-presentation" class="title-slide slide level1 center">
+<h1>3. Creating a presentation</h1>
+<!-- ====================================================================== -->
+</section>
+<section id="a-new-document-type-revealjs-presentations" class="slide level2">
+<h2>3.1 A new document type: Revealjs presentations</h2>
+<ul>
+<li>A slide deck is usually the second document you create in Quarto, after a simple report.</li>
+<li>Quarto lets you create interactive presentations using a combination of Markdown and <strong>Revealjs</strong>
+<ul>
+<li>Yet another thing to learn… but the syntax is not too hard</li>
+</ul></li>
+</ul>
+</section>
+<section id="revealjs-yaml" class="slide level2">
+<h2>3.1 Revealjs YAML</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb16-1"><a href></a><span class="pp">---</span></span>
+<span id="cb16-2"><a href></a><span class="fu">format</span><span class="kw">:</span></span>
+<span id="cb16-3"><a href></a><span class="at">  </span><span class="fu">revealjs</span><span class="kw">:</span></span>
+<span id="cb16-4"><a href></a><span class="at">    </span><span class="fu">theme</span><span class="kw">:</span><span class="at"> simple</span></span>
+<span id="cb16-5"><a href></a><span class="at">    </span><span class="fu">slide-number</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb16-6"><a href></a><span class="at">    </span><span class="fu">transition</span><span class="kw">:</span><span class="at"> fade</span></span>
+<span id="cb16-7"><a href></a><span class="at">    </span><span class="fu">incremental</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="cb16-8"><a href></a><span class="pp">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li><code>theme</code> — visual theme (see themes slide)</li>
+<li><code>slide-number: true</code> — show slide numbers</li>
+<li><code>transition</code> — animation between slides: <code>none</code>, <code>fade</code>, <code>slide</code>, <code>convex</code>, <code>concave</code>, <code>zoom</code></li>
+<li><code>incremental: true</code> — bullets reveal one at a time by default (can be overridden per-list)</li>
+</ul>
+</section>
+<section id="main-syntax-headings-slides" class="slide level2">
+<h2>3.1 Main syntax: headings → slides</h2>
+<ul>
+<li><code>##</code> (level-2 heading) starts a <strong>new slide</strong></li>
+<li><code>#</code> (level-1 heading) makes a <strong>big section divider</strong> — like the slides introducing each part of this workshop</li>
+<li><code>###</code> (level-3) creates a <strong>sub-slide</strong>, stacked vertically under the previous <code>##</code> slide</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb17-1"><a href></a><span class="fu"># Section title</span></span>
+<span id="cb17-2"><a href></a></span>
+<span id="cb17-3"><a href></a><span class="fu">## A slide</span></span>
+<span id="cb17-4"><a href></a></span>
+<span id="cb17-5"><a href></a><span class="fu">### A vertical sub-slide, nested under &quot;A slide&quot;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="columns" class="slide level2">
+<h2>3.2 Columns</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb18-1"><a href></a>::: {.columns}</span>
+<span id="cb18-2"><a href></a>::: {.column width=&quot;50%&quot;}</span>
+<span id="cb18-3"><a href></a>Left content</span>
+<span id="cb18-4"><a href></a>:::</span>
+<span id="cb18-5"><a href></a>::: {.column width=&quot;50%&quot;}</span>
+<span id="cb18-6"><a href></a>Right content</span>
+<span id="cb18-7"><a href></a>:::</span>
+<span id="cb18-8"><a href></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column" style="width:50%;">
+<p>This is what it looks like rendered — you’re reading the output of the exact code on the left.</p>
+</div></div>
+</section>
+<section id="incremental-reveals" class="slide level2">
+<h2>3.3 Incremental reveals</h2>
+<ul>
+<li>Wrap a list in <code>{.incremental}</code> to reveal bullets <strong>one at a time</strong> on click</li>
+</ul>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb19-1"><a href></a>::: {.incremental}</span>
+<span id="cb19-2"><a href></a><span class="ss">- </span>Bullet one</span>
+<span id="cb19-3"><a href></a><span class="ss">- </span>Bullet two</span>
+<span id="cb19-4"><a href></a><span class="ss">- </span>Bullet three</span>
+<span id="cb19-5"><a href></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column" style="width:50%;">
+<ul>
+<li class="fragment">Bullet one</li>
+<li class="fragment">Bullet two</li>
+<li class="fragment">Bullet three</li>
+</ul>
+</div></div>
+</section>
+<section id="fragment-styles" class="slide level2">
+<h2>3.3 Fragment styles</h2>
+<ul>
+<li><code>{.fragment}</code> reveals <strong>any element</strong> (not just list items) on click — text, images, code blocks…</li>
+<li>Add a <strong>fragment style class</strong> to change <em>how</em> it appears:</li>
+</ul>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb20-1"><a href></a>::: {.fragment}</span>
+<span id="cb20-2"><a href></a>Fades in (default)</span>
+<span id="cb20-3"><a href></a>:::</span>
+<span id="cb20-4"><a href></a></span>
+<span id="cb20-5"><a href></a>::: {.fragment .fade-up}</span>
+<span id="cb20-6"><a href></a>Slides up</span>
+<span id="cb20-7"><a href></a>:::</span>
+<span id="cb20-8"><a href></a></span>
+<span id="cb20-9"><a href></a>::: {.fragment .highlight-red}</span>
+<span id="cb20-10"><a href></a>Highlights red</span>
+<span id="cb20-11"><a href></a>:::</span>
+<span id="cb20-12"><a href></a></span>
+<span id="cb20-13"><a href></a>::: {.fragment .shrink}</span>
+<span id="cb20-14"><a href></a>Shrinks</span>
+<span id="cb20-15"><a href></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column" style="width:50%;">
+<div class="fragment">
+<p>Fades in (default)</p>
+</div>
+<div class="fragment fade-up">
+<p>Slides up</p>
+</div>
+<div class="fragment highlight-red">
+<p>Highlights red</p>
+</div>
+<div class="fragment shrink">
+<p>Shrinks</p>
+</div>
+</div></div>
+</section>
+<section id="speaker-notes" class="slide level2">
+<h2>3.3 Speaker notes</h2>
+<ul>
+<li>Add notes only <strong>you</strong> can see, shown in Speaker View (press <strong>“S”</strong> during the presentation)</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb21-1"><a href></a>::: {.notes}</span>
+<span id="cb21-2"><a href></a>Only you see this, in Speaker View.</span>
+<span id="cb21-3"><a href></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="slide-level-styling-options" class="slide level2 smaller">
+<h2>3.4 Slide-level styling options</h2>
+<ul>
+<li>Attributes go in <code>{}</code> right after the heading text:</li>
+</ul>
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Class</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>{.smaller}</code></td>
+<td>shrinks content to fit more on the slide</td>
+</tr>
+<tr class="even">
+<td><code>{.scrollable}</code></td>
+<td>makes overflowing content scrollable instead of clipped</td>
+</tr>
+<tr class="odd">
+<td><code>{.center}</code></td>
+<td>vertically centers slide content</td>
+</tr>
+<tr class="even">
+<td><code>{background-color=&quot;...&quot;}</code></td>
+<td>sets a custom background color for that slide</td>
+</tr>
+<tr class="odd">
+<td><code>{background-image=&quot;...&quot;}</code></td>
+<td>sets a custom background image for that slide</td>
+</tr>
+</tbody>
+</table>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb22-1"><a href></a><span class="fu">## A packed slide {.smaller .scrollable}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="themes" class="slide level2">
+<h2>3.4 Themes</h2>
+<ul>
+<li>Revealjs ships with <strong>built-in themes</strong> — just set <code>theme:</code> in the YAML</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb23-1"><a href></a><span class="fu">format</span><span class="kw">:</span></span>
+<span id="cb23-2"><a href></a><span class="at">  </span><span class="fu">revealjs</span><span class="kw">:</span></span>
+<span id="cb23-3"><a href></a><span class="at">    </span><span class="fu">theme</span><span class="kw">:</span><span class="at"> simple</span><span class="co">   # or: default, dark, sky, beige, serif, solarized...</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>Browse them all: <a href="https://quarto.org/docs/presentations/revealjs/themes.html">Revealjs theme gallery</a></li>
+<li>You can also supply a <strong>custom <code>.scss</code> file</strong> for full control over colors, fonts, and spacing:</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb24-1"><a href></a><span class="fu">format</span><span class="kw">:</span></span>
+<span id="cb24-2"><a href></a><span class="at">  </span><span class="fu">revealjs</span><span class="kw">:</span></span>
+<span id="cb24-3"><a href></a><span class="at">    </span><span class="fu">theme</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">default</span><span class="kw">,</span><span class="at"> custom.scss</span><span class="kw">]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <!--
 
-# 3. Document Type 1 — Report
-
-
-## Report-flavored YAML
-
-```yaml
----
-title: "Quarterly Summary"
-format:
-  html:
-    toc: true
-    number-sections: true
----
-```
-
-- `toc: true` — auto-generated table of contents
-- `number-sections: true` — numbered headings
-
-## Cross-references
-
-Refer to the figure from Section 2 by its label instead of a manual number:
-
-```markdown
-As shown in @fig-demo, weight and fuel
-efficiency are inversely related.
-```
-
-::: {.fragment}
-Renders as **"Figure 1"** — and stays correct even if you reorder sections.
-:::
-
-## Citations (pointer, not a full demo)
-
-```yaml
-bibliography: references.bib
-csl: apa.csl
-```
-
-```markdown
-This finding echoes @smith2020.
-```
-
-Worth knowing exists — we won't build this live today.
 
 # 4. Document Type 2 — Presentation
 
@@ -1778,41 +1982,6 @@ Only you see this, in Speaker View (press "S").
 :::
 ```
 
-# 5. Document Type 3 — Website / Book
-
-::: {.notes}
-Timing: ~8 min. Show a pre-built two-page site if live-building runs short on time.
-:::
-
-## The project file: `_quarto.yml`
-
-```yaml
-project:
-  type: website
-
-website:
-  title: "My Site"
-  navbar:
-    left:
-      - href: index.qmd
-        text: Home
-      - href: about.qmd
-        text: About
-```
-
-One `.qmd` file per page; the navbar links them together.
-
-## Preview vs. render
-
-```bash
-quarto preview   # live-reloading local server
-quarto render    # builds the static site to /_site
-```
-
-::: {.fragment}
-**Books** work the same way, with `type: book` and chapters instead of pages — and can additionally render to PDF and EPUB.
-:::
-
 # 6. Wrap-up & Resources
 
 ::: {.notes}
@@ -1832,7 +2001,7 @@ Questions?
 [your.email@example.com]{.fragment}
 -->
 
-<aside><ol class="aside-footnotes"><li id="fn5"><p>See <a href="https://r4ds.hadley.nz/quarto.html#yaml-header">R for Data Science — YAML header</a> for more details</p></li></ol></aside></section></section>
+</section></section>
 
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">

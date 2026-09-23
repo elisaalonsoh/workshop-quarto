@@ -37,11 +37,13 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 - 1.5. Rendering
 
 **2. What can we create with Quarto?**
-- 2.1. Documents
+
+- 2.1. Article and reports
 - 2.2. Presentations
 - 2.3. Dashboards
 - 2.4. Websites
 - 2.5. Books
+:::
 
 ::: {.column width="50%"}
 **3. Creating a presentation**
@@ -63,7 +65,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 - **Quarto** is a publishing system that allows you to both **write text** and **run code** (R/Python/Julia) in the same document
   - Great for **data science** and **reproducible research**!
 - Successor to R Markdown, from the same team at Posit
-- You can create many different things: [documents](https://quarto.org/docs/output-formats/all-formats.html), [presentations](https://quarto.org/docs/presentations/), [dashboards](https://quarto.org/docs/dashboards/), [websites](https://quarto.org/docs/websites/), [books](https://quarto.org/docs/books/), and more!
+- You can create many different documents: [article and reports](https://quarto.org/docs/output-formats/all-formats.html), [presentations](https://quarto.org/docs/presentations/), [dashboards](https://quarto.org/docs/dashboards/), [websites](https://quarto.org/docs/websites/), [books](https://quarto.org/docs/books/), and more!
   - And in different formats depending on the type of *document*: HTML, PDF, Word, PowerPoint, Beamer, Revealjs...
 
 
@@ -388,57 +390,238 @@ format:
 
 [^more-rendering]: See [R for Data Science — YAML header](https://r4ds.hadley.nz/quarto.html#yaml-header) for more details
 
-2. Creating a document
+# 2. What can we create with Quarto?
 <!-- ====================================================================== -->
 
+## 2.1 Articles & Reports ⭐ <!----------------------->
 
+- Basic documents (`.qmd` → HTML, PDF, or Word) for **analyses, papers, and reports**
+- Great for exploratory analysis! E.g. That's how I prepare meetings with my supervisor
+
+**Examples:**
+
+- "My first Quarto document" that you created before 
+- [Sample HTML report](https://quarto.org/docs/output-formats/html-basics.html) or a [HTML report with fancier layout](https://quarto-dev.github.io/quarto-gallery/page-layout/tufte.html)
+
+## 2.2 Presentations <!----------------------->
+
+- Multiple engines: **Revealjs** (HTML, like this deck!), **Beamer** (PDF), **PowerPoint**
+- `##` headings become slides; `#` headings become section dividers
+- Personal take: useful for TA sessions, but not worth switching from Beamer for anything else
+
+**Examples:**
+
+- [Intro to Econometrics and R](https://louissirugue.github.io/metrics_on_R/lecture10/slides.html#1) by [Louis Sirugue](https://louissirugue.github.io/metrics_on_R/) (technically R Markdown, but you can do the same in Quarto)
+
+## 2.3 Dashboards <!----------------------->
+
+- Arrange plots, tables, and value boxes into a **grid layout**
+- Row/column layout is controlled with `##` and `###` headings plus `{.tabset}`/orientation options
+- Can be **static** (rendered once) or **interactive** (via Shiny/Observable)
+
+**Examples:**
+
+- [Quarto dashboards gallery](https://quarto.org/docs/gallery/#dashboards)
+- [Labor and delivery dashboards](https://mine-cetinkaya-rundel.github.io/ld-dashboard/)
+
+## 2.4 Websites ⭐ <!----------------------->
+
+- Multiple `.qmd` pages linked together via a **navbar/sidebar**, defined in `_quarto.yml`
+- Great for **course pages, personal sites, or project docs**
+- `quarto preview` gives a live-reloading local server while you build
+
+**Examples:**
+
+- [Quarto websites gallery](https://quarto.org/docs/gallery/#websites)
+- Course/workshop sites: [Julia Workship](https://crsl4.github.io/julia-workshop/), [STA 210](https://sta210-s22.github.io/website/)
+- Personal sites: [Mike Mahoney](https://www.mm218.dev/)
+
+## 2.5 Books ⭐ <!----------------------->
+
+- Like websites, but organized into **chapters** with automatic numbering, a shared bibliography, and cross-chapter references
+- Renders to a full site **and** PDF/EPUB from one source
+
+**Examples:**
+
+- [Quarto books gallery](https://quarto.org/docs/gallery/#books)
+- [R for Data Science](https://r4ds.hadley.nz/)
+
+
+
+# 3. Creating a presentation
+<!-- ====================================================================== -->
+## 3.1 A new document type: Revealjs presentations
+- A slide deck is usually the second document you create in Quarto, after a simple report.
+- Quarto lets you create interactive presentations using a combination of Markdown and **Revealjs**
+  - Yet another thing to learn... but the syntax is not too hard
+
+## 3.1 Revealjs YAML
+
+```yaml
+---
+format:
+  revealjs:
+    theme: simple
+    slide-number: true
+    transition: fade
+    incremental: false
+---
+```
+
+- `theme` — visual theme (see themes slide)
+- `slide-number: true` — show slide numbers
+- `transition` — animation between slides: `none`, `fade`, `slide`, `convex`, `concave`, `zoom`
+- `incremental: true` — bullets reveal one at a time by default (can be overridden per-list)
+
+## 3.1 Main syntax: headings → slides
+
+- `##` (level-2 heading) starts a **new slide**
+- `#` (level-1 heading) makes a **big section divider** — like the slides introducing each part of this workshop
+- `###` (level-3) creates a **sub-slide**, stacked vertically under the previous `##` slide
+
+```markdown
+# Section title
+
+## A slide
+
+### A vertical sub-slide, nested under "A slide"
+```
+
+## 3.2 Columns
+
+::: {.columns}
+::: {.column width="50%"}
+```markdown
+::: {.columns}
+::: {.column width="50%"}
+Left content
+:::
+::: {.column width="50%"}
+Right content
+:::
+:::
+```
+:::
+::: {.column width="50%"}
+This is what it looks like rendered — you're reading the output of the exact code on the left.
+:::
+:::
+
+## 3.3 Incremental reveals
+
+- Wrap a list in `{.incremental}` to reveal bullets **one at a time** on click
+
+::: {.columns}
+::: {.column width="50%"}
+```markdown
+::: {.incremental}
+- Bullet one
+- Bullet two
+- Bullet three
+:::
+```
+:::
+::: {.column width="50%"}
+::: {.incremental}
+- Bullet one
+- Bullet two
+- Bullet three
+:::
+:::
+:::
+
+## 3.3 Fragment styles
+
+- `{.fragment}` reveals **any element** (not just list items) on click — text, images, code blocks...
+- Add a **fragment style class** to change *how* it appears:
+
+::: {.columns}
+::: {.column width="50%"}
+```markdown
+::: {.fragment}
+Fades in (default)
+:::
+
+::: {.fragment .fade-up}
+Slides up
+:::
+
+::: {.fragment .highlight-red}
+Highlights red
+:::
+
+::: {.fragment .shrink}
+Shrinks
+:::
+```
+:::
+::: {.column width="50%"}
+::: {.fragment}
+Fades in (default)
+:::
+
+::: {.fragment .fade-up}
+Slides up
+:::
+
+::: {.fragment .highlight-red}
+Highlights red
+:::
+
+::: {.fragment .shrink}
+Shrinks
+:::
+:::
+:::
+
+## 3.3 Speaker notes
+
+- Add notes only **you** can see, shown in Speaker View (press **"S"** during the presentation)
+
+```markdown
+::: {.notes}
+Only you see this, in Speaker View.
+:::
+```
+
+## 3.4 Slide-level styling options {.smaller}
+
+- Attributes go in `{}` right after the heading text:
+
+| Class | Effect |
+|---|---|
+| `{.smaller}` | shrinks content to fit more on the slide |
+| `{.scrollable}` | makes overflowing content scrollable instead of clipped |
+| `{.center}` | vertically centers slide content |
+| `{background-color="..."}` | sets a custom background color for that slide |
+| `{background-image="..."}` | sets a custom background image for that slide |
+
+```markdown
+## A packed slide {.smaller .scrollable}
+```
+
+## 3.4 Themes
+
+- Revealjs ships with **built-in themes** — just set `theme:` in the YAML
+
+```yaml
+format:
+  revealjs:
+    theme: simple   # or: default, dark, sky, beige, serif, solarized...
+```
+
+- Browse them all: [Revealjs theme gallery](https://quarto.org/docs/presentations/revealjs/themes.html)
+- You can also supply a **custom `.scss` file** for full control over colors, fonts, and spacing:
+
+```yaml
+format:
+  revealjs:
+    theme: [default, custom.scss]
+```
 
 
 <!--
 
-# 3. Document Type 1 — Report
-
-
-## Report-flavored YAML
-
-```yaml
----
-title: "Quarterly Summary"
-format:
-  html:
-    toc: true
-    number-sections: true
----
-```
-
-- `toc: true` — auto-generated table of contents
-- `number-sections: true` — numbered headings
-
-## Cross-references
-
-Refer to the figure from Section 2 by its label instead of a manual number:
-
-```markdown
-As shown in @fig-demo, weight and fuel
-efficiency are inversely related.
-```
-
-::: {.fragment}
-Renders as **"Figure 1"** — and stays correct even if you reorder sections.
-:::
-
-## Citations (pointer, not a full demo)
-
-```yaml
-bibliography: references.bib
-csl: apa.csl
-```
-
-```markdown
-This finding echoes @smith2020.
-```
-
-Worth knowing exists — we won't build this live today.
 
 # 4. Document Type 2 — Presentation
 
@@ -491,41 +674,6 @@ This is what it looks like rendered — you're reading the output of the exact c
 Only you see this, in Speaker View (press "S").
 :::
 ```
-
-# 5. Document Type 3 — Website / Book
-
-::: {.notes}
-Timing: ~8 min. Show a pre-built two-page site if live-building runs short on time.
-:::
-
-## The project file: `_quarto.yml`
-
-```yaml
-project:
-  type: website
-
-website:
-  title: "My Site"
-  navbar:
-    left:
-      - href: index.qmd
-        text: Home
-      - href: about.qmd
-        text: About
-```
-
-One `.qmd` file per page; the navbar links them together.
-
-## Preview vs. render
-
-```bash
-quarto preview   # live-reloading local server
-quarto render    # builds the static site to /_site
-```
-
-::: {.fragment}
-**Books** work the same way, with `type: book` and chapters instead of pages — and can additionally render to PDF and EPUB.
-:::
 
 # 6. Wrap-up & Resources
 
