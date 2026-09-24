@@ -36,6 +36,17 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 - 1.4. More features
 - 1.5. Rendering
 
+**3. Creating a presentation**
+
+- 3.1. Main syntax
+- 3.2. Pretty code
+- 3.3. Fenced divs
+- 3.4. Styling
+
+:::
+
+::: {.column width="50%"}
+
 **2. What can we create with Quarto?**
 
 - 2.1. Article and reports
@@ -43,17 +54,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 - 2.3. Dashboards
 - 2.4. Websites
 - 2.5. Books
-:::
 
-::: {.column width="50%"}
-**3. Creating a presentation**
-
-- 3.1. Revealjs YAML
-- 3.2. Columns
-- 3.3. Incremental reveals & speaker notes
-
-
-**4. Wrap-up & Resources**
 :::
 :::
 
@@ -300,7 +301,7 @@ knitr::kable(head(mtcars))
 
 - Markdown tables are simple but static; tables built **in R** (or Python) can be generated from data and styled with packages like `kableExtra`, `huxtable` or `gt`
 
-## More features: Including figures [^more-fig]  <!----------------------->
+## More features: Including figures   <!----------------------->
 
 - Figures can come from a **code chunk** (e.g. a `ggplot2` plot) or be **inserted directly** with Markdown image syntax
 - Chunk options control figure appearance: `fig-width`, `fig-height`, `fig-cap`, `fig-align`...
@@ -316,10 +317,10 @@ ggplot(mtcars, aes(wt, mpg)) + geom_point()
 # Markdown syntax for an image:
 ![Caption text](path/to/image.png)
 ```
-
-[^more-fig]:See [R for Data Science — Figures](https://r4ds.hadley.nz/quarto.html#sec-figures) for more details
-
-## 1.4 More features: Including citations [^more-citations] <!----------------------->
+::: footer
+Learn more: [R for Data Science — Figures](https://r4ds.hadley.nz/quarto.html#sec-figures)
+:::
+## 1.4 More features: Including citations <!----------------------->
 
 - Add a `bibliography` file (e.g. `.bib`) to the YAML header, then cite with `@key`
 
@@ -335,7 +336,9 @@ As shown by @wickham2016, ...
 
 - Quarto automatically generates a **reference list** at the end of the document
 
-[^more-citations]: See [R for Data Science — Bibliographies & Citations](https://r4ds.hadley.nz/quarto.html#bibliographies-and-citations) for more details
+::: footer
+Learn more: [R for Data Science — Bibliographies & Citations](https://r4ds.hadley.nz/quarto.html#bibliographies-and-citations)
+:::
 
 ## 1.4 Rendering <!----------------------->
 
@@ -369,7 +372,7 @@ quarto render doc.qmd --to pdf
 [^pdf]: PDF output requires a TeX distribution to be installed on your system. If you don't have any, run `quarto install tinytex` in the terminal
 
 
-## 1.4 Rendering: caching & self-contained files [^more-rendering] {.smaller}
+## 1.4 Rendering: caching & self-contained files {.smaller}
 
 **Caching**
 
@@ -387,8 +390,9 @@ format:
   html:
     embed-resources: true
 ```
-
-[^more-rendering]: See [R for Data Science — YAML header](https://r4ds.hadley.nz/quarto.html#yaml-header) for more details
+::: footer
+Learn more: [R for Data Science — YAML header](https://r4ds.hadley.nz/quarto.html#yaml-header)
+:::
 
 # 2. What can we create with Quarto?
 <!-- ====================================================================== -->
@@ -400,13 +404,13 @@ format:
 
 **Examples:**
 
-- "My first Quarto document" that you created before 
 - [Sample HTML report](https://quarto.org/docs/output-formats/html-basics.html) or a [HTML report with fancier layout](https://quarto-dev.github.io/quarto-gallery/page-layout/tufte.html)
+- Even manuscripts: [Chaudhry, Dotson and Heiss 2025](https://stats.andrewheiss.com/silent-skywalk/manuscript/output/manuscript.html)
 
 ## 2.2 Presentations <!----------------------->
 
 - Multiple engines: **Revealjs** (HTML, like this deck!), **Beamer** (PDF), **PowerPoint**
-- `##` headings become slides; `#` headings become section dividers
+- Good for code-heavy presentations, or if you want to have animations or interactive elements
 - Personal take: useful for TA sessions, but not worth switching from Beamer for anything else
 
 **Examples:**
@@ -428,13 +432,13 @@ format:
 
 - Multiple `.qmd` pages linked together via a **navbar/sidebar**, defined in `_quarto.yml`
 - Great for **course pages, personal sites, or project docs**
-- `quarto preview` gives a live-reloading local server while you build
 
 **Examples:**
 
 - [Quarto websites gallery](https://quarto.org/docs/gallery/#websites)
 - Course/workshop sites: [Julia Workship](https://crsl4.github.io/julia-workshop/), [STA 210](https://sta210-s22.github.io/website/)
 - Personal sites: [Mike Mahoney](https://www.mm218.dev/)
+- Projects: [Council housing](https://mschnetzer.github.io/scrollytell_gemeindebau/)
 
 ## 2.5 Books ⭐ <!----------------------->
 
@@ -449,45 +453,130 @@ format:
 
 
 # 3. Creating a presentation
+Quarto lets you create interactive presentations using a combination of Markdown and **Revealjs**. Yet another thing to learn... but the syntax is not too hard
 <!-- ====================================================================== -->
-## 3.1 A new document type: Revealjs presentations
-- A slide deck is usually the second document you create in Quarto, after a simple report.
-- Quarto lets you create interactive presentations using a combination of Markdown and **Revealjs**
-  - Yet another thing to learn... but the syntax is not too hard
 
-## 3.1 Revealjs YAML
+## 3.1 Main syntax <!----------------------->
+
+The most typical YAMLL header options for a Revealjs presentation are:
 
 ```yaml
 ---
 format:
   revealjs:
-    theme: simple
-    slide-number: true
-    transition: fade
-    incremental: false
+    theme: simple                   # Controls the visual theme, can be customized with CSS
+    slide-number: true              # Show slide numbers
+    transition: fade                # animation between slides: `none`, `fade`, `slide`, `convex`, `concave`, `zoom`
+    incremental: false              # bullets reveal one at a time by default
 ---
 ```
 
-- `theme` — visual theme (see themes slide)
-- `slide-number: true` — show slide numbers
-- `transition` — animation between slides: `none`, `fade`, `slide`, `convex`, `concave`, `zoom`
-- `incremental: true` — bullets reveal one at a time by default (can be overridden per-list)
+## 3.1 Main syntax <!----------------------->
 
-## 3.1 Main syntax: headings → slides
-
-- `##` (level-2 heading) starts a **new slide**
 - `#` (level-1 heading) makes a **big section divider** — like the slides introducing each part of this workshop
-- `###` (level-3) creates a **sub-slide**, stacked vertically under the previous `##` slide
+- `##` (level-2 heading) starts a **new slide**
+- `:::` marks a **fenced Div**, which wraps a block of content so you can apply attributes to it as a whole
+  - `{.class}` (or `{#id}`, `{key="value"}`) right after `:::` sets **attributes** on that Div 
+  -  Used for anything that needs **grouping + styling**: columns, speaker notes, incremental lists, fragments, callout boxes, footers...
 
-```markdown
-# Section title
 
-## A slide
+## 3.2 Pretty code {auto-animate="true"}
+- Over 20 syntax highlighting themes available
 
-### A vertical sub-slide, nested under "A slide"
+``` r
+# Define a server for the Shiny app
+function(input, output) {
+  
+  # Fill in the spot we created for a plot
+  output$phonePlot <- renderPlot({
+    # Render a barplot
+  })
+}
 ```
 
-## 3.2 Columns
+## 3.2 Pretty code: animations {auto-animate="true"}
+
+-   Over 20 syntax highlighting themes available
+
+```r
+# Define a server for the Shiny app
+function(input, output) {
+  
+  # Fill in the spot we created for a plot
+  output$phonePlot <- renderPlot({
+    # Render a barplot
+    barplot(WorldPhones[,input$region]*1000, 
+            main=input$region,
+            ylab="Number of Telephones",
+            xlab="Year")
+  })
+}
+```
+
+## 3.2 Pretty code: highlighting  <!----------------------->
+
+-   Highlight specific lines of code for emphasis, e.g. incrementally
+
+```{.r code-line-numbers="4-5|7|10"}
+# Define a server for the Shiny app
+function(input, output) {
+  
+  # Fill in the spot we created for a plot
+  output$phonePlot <- renderPlot({
+    # Render a barplot
+    barplot(WorldPhones[,input$region]*1000, 
+            main=input$region,
+            ylab="Number of Telephones",
+            xlab="Year")
+  })
+}
+```
+
+::: footer
+Learn more: [Line Highlighting](https://quarto.org/docs/presentations/revealjs/#line-highlighting)
+:::
+
+
+## 3.2 Pretty code: interactivity {.smaller}
+
+- Turn presentations into **live apps** with **Observable (OJS)** or **Shiny** 
+
+```{ojs}
+//| echo: false
+data = Array.from({length: 100}, () => ({
+  x: d3.randomNormal(0, 1)(),
+  y: d3.randomNormal(0, 1)()
+}))
+```
+
+```{ojs}
+//| echo: false
+//| panel: sidebar
+viewof threshold = Inputs.range([-2, 2], {value: 0, step: 0.1, label: "highlight above x ="})
+```
+
+```{ojs}
+//| echo: false
+//| panel: fill
+Plot.plot({
+  marks: [
+    Plot.dot(data, {
+      x: "x", y: "y",
+      fill: d => d.x > threshold ? "steelblue" : "lightgray"
+    })
+  ]
+})
+```
+
+::: footer
+Learn more: [Observable](https://quarto.org/docs/interactive/ojs/), [Shiny](https://quarto.org/docs/interactive/shiny/), [Component Layout](https://quarto.org/docs/interactive/layout.html)
+:::
+
+
+## 3.3 Fenced divs: Columns <!----------------------->
+<br>
+
+You can arrange content into columns of varying widths:
 
 ::: {.columns}
 ::: {.column width="50%"}
@@ -503,12 +592,12 @@ Right content
 ```
 :::
 ::: {.column width="50%"}
-This is what it looks like rendered — you're reading the output of the exact code on the left.
+Here we would have our right content
 :::
 :::
 
-## 3.3 Incremental reveals
-
+## 3.3 Fenced divs: Incremental reveals <!----------------------->
+ 
 - Wrap a list in `{.incremental}` to reveal bullets **one at a time** on click
 
 ::: {.columns}
@@ -530,9 +619,8 @@ This is what it looks like rendered — you're reading the output of the exact c
 :::
 :::
 
-## 3.3 Fragment styles
-
-- `{.fragment}` reveals **any element** (not just list items) on click — text, images, code blocks...
+## 3.3 Fenced divs: Fragment styles <!----------------------->
+ 
 - Add a **fragment style class** to change *how* it appears:
 
 ::: {.columns}
@@ -574,7 +662,7 @@ Shrinks
 :::
 :::
 
-## 3.3 Speaker notes
+## 3.3 Fenced divs: Speaker notes <!----------------------->
 
 - Add notes only **you** can see, shown in Speaker View (press **"S"** during the presentation)
 
@@ -584,7 +672,7 @@ Only you see this, in Speaker View.
 :::
 ```
 
-## 3.4 Slide-level styling options {.smaller}
+## 3.4 Styling: slide-level options {.smaller background=lightblue}
 
 - Attributes go in `{}` right after the heading text:
 
@@ -596,13 +684,13 @@ Only you see this, in Speaker View.
 | `{background-color="..."}` | sets a custom background color for that slide |
 | `{background-image="..."}` | sets a custom background image for that slide |
 
-```markdown
-## A packed slide {.smaller .scrollable}
-```
+::: footer
+Learn more: [Slide Backgrounds](https://quarto.org/docs/presentations/revealjs/#color-backgrounds)
+:::
 
-## 3.4 Themes
+## 3.4 Styling: themes <!----------------------->
 
-- Revealjs ships with **built-in themes** — just set `theme:` in the YAML
+- There are 10 [built-in themes](https://quarto.org/docs/presentations/revealjs/themes.html) 
 
 ```yaml
 format:
@@ -610,8 +698,8 @@ format:
     theme: simple   # or: default, dark, sky, beige, serif, solarized...
 ```
 
-- Browse them all: [Revealjs theme gallery](https://quarto.org/docs/presentations/revealjs/themes.html)
-- You can also supply a **custom `.scss` file** for full control over colors, fonts, and spacing:
+- You can also add a **custom `.scss` file** for full control over the appearance:
+  - Example: I created a theme inspired by `metropolis` (from beamer)
 
 ```yaml
 format:
@@ -620,76 +708,5 @@ format:
 ```
 
 
-<!--
-
-
-# 4. Document Type 2 — Presentation
-
-::: {.notes}
-Timing: ~10 min. This slide deck IS the demo — say that explicitly, then build 2-3 new slides live from scratch.
-:::
-
-## You're looking at one right now
-
-```yaml
-format:
-  revealjs:
-    theme: simple
-    slide-number: true
-    transition: fade
-```
-
-Each `##` heading starts a new slide. `#` (single hash) makes a big section divider — like the slides introducing each part of this workshop.
-
-## Columns, live
-
-::: {.columns}
-::: {.column width="50%"}
-```markdown
-::: {.columns}
-::: {.column width="50%"}
-Left content
-:::
-::: {.column width="50%"}
-Right content
-:::
-:::
-```
-:::
-::: {.column width="50%"}
-This is what it looks like rendered — you're reading the output of the exact code on the left.
-:::
-:::
-
-## Incremental reveals & speaker notes
-
-::: {.incremental}
-- Bullet one
-- Bullet two
-- Bullet three
-:::
-
-```markdown
-::: {.notes}
-Only you see this, in Speaker View (press "S").
-:::
-```
-
-# 6. Wrap-up & Resources
-
-::: {.notes}
-Timing: ~5 min. Genuine buffer — let this absorb any overrun from earlier sections.
-:::
-
-## Where to go next
-
-- **Docs**: quarto.org/docs
-- **Cheat sheet**: rstudio.github.io/cheatsheets → Quarto
-- **Extensions gallery**: quarto.org/docs/extensions — confetti, fullscreen code, and more for revealjs
-- **Gallery of real examples**: quarto.org/docs/gallery
-
-## Thank you! {.center}
-
-Questions?
-[your.email@example.com]{.fragment}
--->
+# Thank you! 
+For more resources I recommend the Posit Conf [Quarto Workshop](https://posit-conf-2025.github.io/quarto-brand/) and their [Extending Quarto Workshop](https://posit-conf-2025.github.io/quarto-extend/)
